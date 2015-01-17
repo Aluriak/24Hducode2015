@@ -2,6 +2,7 @@
 Access by dictionnary to all data in json.
 """
 import json
+import schedule
 import os
 from collections import defaultdict
 
@@ -78,15 +79,6 @@ def creat_weight():
     date must be in format provided (not expected in move query)
     by the server
     """
-    def next_cars(stop_id, travel_time):
-        """
-        Return list of (schedule_time, track, index), where index 
-        is the index of schedule_time in track for received stop_id.
-        There is at most one schedule entry for one track_id.
-        """
-        nexts = []
-        for key, schedule in 
-        return nexts
     data = {}
     return data
 
