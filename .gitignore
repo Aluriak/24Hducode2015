@@ -2,3 +2,6 @@
 __pycache__
 .*.swp
 .*.swo
+jacky_secret_key
+jacky_token
+secret_key
