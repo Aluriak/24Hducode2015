@@ -82,6 +82,21 @@ def creat_weight():
     data = {}
     return data
 
+def creat_linking(structure):
+    """ HEAVY generation of main dictionnary
+
+    Link a stop_id to tracks that pass over this stop_id.
+    return dict have stop_id as key and a set of track_id as value
+    
+    Take a structure dictionnary (see creat_structure function)
+    as parameter
+    """
+    # a set can't have doublons
+    # so values can't have doublons
+    linking = defaultdict(set)
+    for track_id, stop_id in structure.keys():
+        linking[stop_id].add(track_id)
+    return linking
 
 
 
@@ -104,6 +119,7 @@ def generationHoraire(self):
 if __name__ == '__main__':
     next_stop = creat_structure()
     schedules = creat_schedules()
+    linkings  = creat_linkings ()
     track = 36
     stop  = 1334 
     print(next_stop[track, stop])
