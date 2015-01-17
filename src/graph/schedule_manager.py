@@ -39,6 +39,24 @@ def next_car(schedule, travel_time):
     
 
 
+def next_all_cars(schedules, linking, stop_id, travel_time):
+    """Return dict track:next_car
+
+    schedules is considered as the main dictionnary creat in data_access.
+    linking is creat as a stop_id:[tracks]. (see data_access file)
+    For each existing track of given stop_id,
+    get the next car in schedule.
+    All are returned in a dict track:next_car
+    """
+    all_cars = {}
+    for track_id in linking[stop_id]:
+        all_cars[track_id] = next_car(schedules[track_id, stop_id], travel_time)
+    return all_cars
+        
+
+
+
+
 if __name__ == '__main__':
     print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 04:44:00'))
     print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 10:31:00'))
