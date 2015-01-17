@@ -7,9 +7,10 @@
 #########################
 # IMPORTS               #
 #########################
-import urllib3
 import json
 import requests
+import datetime
+import locale
 from secret import jacky_secret_key, jacky_token
 
 
@@ -21,6 +22,20 @@ from secret import jacky_secret_key, jacky_token
 def ask_server(url, json_data):
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     return requests.post(url, data=json.dumps(json_data), headers=headers)
+
+
+def timin2timout(timin):
+    """
+    return given time format (returned by server):
+        2015-03-18T04:44:00+00:00
+    in this time format (expected by server for move):
+        2015-03-18 04:44:00
+    """
+    d = datetime.datetime.strptime(timin, '%Y-%m-%dT%H:%M:%S+00:00')
+    d =  datetime.datetime.strftime(d, '%d %a %H:%M:%S %Y')
+    print(d)
+    return d
+
 
 
 
