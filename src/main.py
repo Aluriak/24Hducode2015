@@ -7,6 +7,7 @@
 #########################
 # IMPORTS               #
 #########################
+from server_request import Game
 
 
 
@@ -35,6 +36,10 @@
 # FUNCTIONS             #
 #########################
 if __name__ == '__main__':
-    print('plop')
+    g = Game(Game.TRAINING)
+    g.start()
+    while not g.game_have_begin():
+        pass
+    g.send_move('42', '11_A', g.last_game_state['dtstart'])
 
 
