@@ -2,6 +2,7 @@
 Access by dictionnary to all data in json.
 """
 import json
+import schedule_manager
 import os
 from collections import defaultdict
 
@@ -79,7 +80,9 @@ def creat_weight():
     by the server
     """
     from schedule_manager import all_next_cars
-    pass
+    data = {}
+    return data
+
 
 
 
