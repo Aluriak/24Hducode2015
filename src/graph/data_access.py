@@ -9,7 +9,7 @@ PATH = '../../data/'
 TRACKS =  ['11_A', '11_R', '12_A', '12_R', '16_A', '16_R', '17_A', '17_R', '18_A', '18_R', '19_A', '19_R',
            '20_A', '20_R', '21_A', '21_R', '22_A', '22_R', '23_A', '23_R', '24_A', '24_R', '25_A', '25_R',
            '26_A', '26_R', '27_A', '27_R', '2_A', '2_R', '3_A', '3_R', '4_A', '4_R', '5_A','5_R', '6_A', '6_R',
-           '8_A', '8_R', '9_A', '9_R', 'T1_A', 'T1_R', 'T2_A', 'T2_R']:
+           '8_A', '8_R', '9_A', '9_R', 'T1_A', 'T1_R', 'T2_A', 'T2_R']
 
 
 def next_stop(structure, track_id, stop_id):
@@ -32,7 +32,7 @@ def creat_structure():
     structure[track, stop] : next_stop
     """
     data = {}
-    for file_name in TRACKS
+    for file_name in TRACKS:
         with open(PATH+file_name+'.json', 'r') as fl:
             brute_data = json.loads(fl.read())
             previous_stop = None
@@ -55,7 +55,7 @@ def creat_schedules():
     """
     data = {}
 
-    for file_name in TRACKS
+    for file_name in TRACKS:
         with open(PATH+file_name+'.json', 'r') as fl:
             brute_data = json.loads(fl.read())
             for stop in brute_data['stops']:
@@ -78,19 +78,12 @@ def creat_weight():
     date must be in format provided (not expected in move query)
     by the server
     """
-    def next_cars(stop_id, travel_time):
-        """
-        Return list of (schedule_time, track, index), where index 
-        is the index of schedule_time in track for received stop_id.
-        There is at most one schedule entry for one track_id.
-        """
-        nexts = []
-        for key, schedule in 
-        return nexts
-    data = {}
-    return data
+    from schedule_manager import all_next_cars
+    pass
 
-def creat_linking(structure):
+
+
+def creat_linkings(structure):
     """ HEAVY generation of main dictionnary
 
     Link a stop_id to tracks that pass over this stop_id.
@@ -109,7 +102,7 @@ def creat_linking(structure):
 
 
 def generationHoraire(self):
-    for file_name in TRACKS
+    for file_name in TRACKS:
         with open(PATH+file_name+'.json', 'r') as fl:
             data[file_name] = json.loads(fl.read())
 
@@ -127,7 +120,7 @@ def generationHoraire(self):
 if __name__ == '__main__':
     next_stop = creat_structure()
     schedules = creat_schedules()
-    linkings  = creat_linkings ()
+    linkings  = creat_linkings (next_stop)
     track = 36
     stop  = 1334 
     print(next_stop[track, stop])
