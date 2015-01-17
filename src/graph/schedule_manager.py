@@ -39,7 +39,7 @@ def next_car(schedule, travel_time):
     
 
 
-def next_all_cars(schedules, linking, stop_id, travel_time):
+def all_next_cars(schedules, linking, stop_id, travel_time):
     """Return dict track:next_car
 
     schedules is considered as the main dictionnary creat in data_access.
