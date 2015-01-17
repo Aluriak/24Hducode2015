@@ -7,7 +7,7 @@
 #########################
 # IMPORTS               #
 #########################
-from server_request import Game
+from server_request import Game, timin2timout
 
 
 
@@ -40,6 +40,7 @@ if __name__ == '__main__':
     g.start()
     while not g.game_have_begin():
         pass
-    g.send_move('42', '11_A', g.last_game_state['dtstart'])
+    g.send_move('1123', '11_A', timin2timout(g.last_game_state['dtstart']))
+    print(timin2timout(d))
 
 
