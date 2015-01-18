@@ -12,187 +12,104 @@ DISTANCE_BETWEEN_TWO_NODES = 1
 
 
 
-def dijkstra(structure, schedules, linkings, stop_start, stop_target):
+def simplify_dijkstra(func):
+    def wrap(*argv, **kwargs):
+        path = dijkstra(*argv, **kwargs)
+        new_path = [path[0]]
+        track_current, track_first_stop = path[0]
+        previous_track, previous_stop   = path[0]
+        for track, stop in path:
+            if track is not track_current:
+                # add only end of each
+                new_path.append(previous_track, previous_stop)
+            previous_track, previous_stop = track, stop
+        # if the last is not pushed
+        if path[-1] != new_path[-1]:
+            new_path.append(path[0])
+
+        return new_path
+    return wrap
+
+
+
+@simplify_dijkstra
+def dijkstra(next_stop, schedules, linkings, stop_start, stop_target):
     """
-    structure, schedules, weights and linkings are dictionnary created since 
+    next_stop (structure), schedules, weights and linkings are dictionnary created since 
     data_access module.
     stop_start and stop_target are stop_id where bot start and where bot must go.
 
     return list of (track_id, stop_id) needed for reach target from start
+    track_id is the track that is taked for reach stop_id.
     """
-    final_path = []
-    return final_path
+    import heapq
+    INFINITY = 999999999
+    # def of a graph node :
+    dist = defaultdict(lambda: None, {stop_start:0}) 
+    prev = defaultdict(lambda: None, {stop_start:(None, None)}) # value is (track, stop)
+    time = defaultdict(lambda: None, {stop_start:Horaire(0, 0)})
+    # all are unwalked, except stop_start
+    unwalked = [_ for _ in linkings.keys() if _ is not stop_start]
+    # get ordered list of nodes, by priority queue
+    for node in linkings.keys():
+        heapq.heappush(unwalked, (INFINITY, node))
+    
+
+    # walk on all nodes
+    while len(unwalked) > 0:
+        dist, stop = heapq.heappop(unwalked)
+        # for each neighbor of node
+        for track, node in (track, next_stop[track, stop] for track in linkings[stop]):
+            weight, arrived_horaire = compute_weight(
+                prev[stop][0],  # we are here
+                track,          # we try this one
+                stop,           # from here
+                node,           # to here
+                time[stop_start], # at this moment 
+                next_stop,      # in this structure
+                schedules       # with these schedules
+            )
+            alt = dist[stop] + weight
+            if alt < dist[node]: # shorter path to node found
+                dist[node] = alt
+                prev[node] = (track, stop)
+
+    
+    # path reconstruction
+    path = []
+    cur_node = stop_target
+    while cur_node is not None: # while first is not reach
+        track, stop = prev[cur_node]
+        path = path + [track, stop]
+        cur_node = stop
+    return  path
+#function Dijkstra(Graph, source):
 
 
+   #for each vertex v in Graph:  // Initialization
+#if v ≠ source            // Where v has not yet been removed from Q (unvisited nodes)
+     #dist[v] ← infinity             // Unknown distance function from source to v
+        #prev[v] ← undefined            // Previous node in optimal path from source
+     #end if 
+     #add v to Q                     // All nodes initially in Q (unvisited nodes)
+ #end for
+ 
+ #while Q is not empty:
+         #u ← vertex in Q with min dist[u]  // Source node in first case
+         #remove u from Q 
+         
+         #for each neighbor v of u:           // where v has not yet been removed from Q.
+             #alt ← dist[u] + length(u, v)
+             #if alt < dist[v]:               // A shorter path to v has been found
+                 #dist[v] ← alt 
+                 #prev[v] ← u 
+             #end if
+         #end for
+     #end while
 
+     #return dist[], prev[]
 
-class Graph(object):
-    """Basic implementation of graph."""
-
-    def __init__(self, nodes, distanceBetweenTwoNodes = DISTANCE_BETWEEN_TWO_NODES):
-        self.nodes = nodes
-        self.first = True
-        self.distanceBetweenTwoNodes = distanceBetweenTwoNodes
-
-
-
-    def addSuccTo(self, thisNode, addedSuccessor):
-        """Add given successor to given node. Successor must be a list"""
-        # add addedSuccessor to node addedSuccessors
-        if self.nodes.get(thisNode) != None:
-            self.nodes[thisNode] += addedSuccessor
-        else:
-            self.nodes[thisNode] = addedSuccessor
-
-
-    def retSuccOf(self, thisNode, retiredSuccessor):
-        """Delete successor of given node. retiredSuccessor must be a list"""
-        if self.nodes.get(thisNode) != None:
-            # reconstruct the list without content 
-            # of retiredSuccessor
-            self.nodes[thisNode] = [x for x in self.nodes[thisNode] if x not in retiredSuccessor]
-        else:
-            pass # nothing to do
-
-
-
-    def __str__(self):
-        ret = ""
-        for node, succ in self.nodes.items():
-            ret += "("+str(node)+"): (" 
-            ret += ", ".join([str(x) for x in succ]) + ")\n"
-
-        return ret
-
-
-
-#Fonction Dijkstra (firstNode, target)
-    def Dijkstra(self, start, ends):
-        """Dijkstra. Return a list of duet.
-        Each duet is (path, evaluation) for a end node in ends argument"""
-        # PICKLE (for work offline with samples)
-        #fd = open("RECOVERY_GRAPH", "w")
-        #pickle.dump(self.nodes, fd)
-        #fd.close()
-
-
-        # for each node of graph
-        walked = {}
-        previous = {}
-        for key in self.nodes.iterkeys():
-            walked[key]   = None # infinity
-            previous[key] = None
-            
-        # init walking dict and notFoundYet list
-        walked[start] = 0
-        notFoundYet = set()
-        for key in self.nodes.iterkeys():
-            notFoundYet.append(key)
-
-        # while there is nodes not found
-        while len(notFoundYet) > 0:
-            minimalNode = self.nodeAtMinimumDistance(notFoundYet, walked)
-            #print "MINIMAL NODE POPPED: "+str(minimalNode)
-        
-            if minimalNode == None:
-                #print "\n\n======ASSERT\n"
-                #print "notFoundYet = "+str(notFoundYet)+"\n"
-                #print "\n",
-                #print "start = "+str(start)
-                #print "end = "+str(end)
-                #print "\n",
-                #for node in notFoundYet:
-                    #print str(node)+": "+str(walked[node])
-                #print "\n",
-                #print "walked = "+str(walked)+"\n"
-                #print "previous = "+str(previous)+"\n"
-                #print "\n\n======ASSERT\n\n"
-                exit(1)
-            # pasEncoreVu.enlever(n1)
-            # delete minimal from notFoundYet
-            tmp = []
-            for node in notFoundYet:
-                if node != minimalNode: tmp.append(node)
-            notFoundYet = tmp
-
-            # Pour n2 parcourant fils(n1)   // Les nœuds reliés à n1 par un arc
-            #     Si n2.parcouru > n1.parcouru + distance(n1, n2)   // distance correspond au poids de l'arc reliant n1 et n2
-            #         n2.parcouru = n1.parcouru + distance(n1, n2)
-            #         n2.précédent = n1   // Dit que pour aller à n2, il faut passer par n1
-            #     Fin si
-            # Fin pour
-            # for each successor of minimal
-            for successor in self.nodes[minimalNode]:
-                distance = self.distanceBetween(minimalNode, successor)
-                walkToSucc = walked[successor]
-                walkToNode = walked[minimalNode]
-                if walkToSucc == None    or    (walkToSucc > (walkToNode + distance)):
-                    walked[successor] = walkToNode + distance
-                    #print "DISTANCE"+str(distance)
-                    previous[successor] = minimalNode
-
-        # Here, all nodes are founded
-            
-
-
-        results = []
-        # for each end node
-        for end in ends:
-            #Fin tant que
-            #chemin = liste vide
-            #n = fin
-            #Tant que n != début
-            path = []
-            target = end
-            while target != start:
-                # chemin.ajouterAvant(n)
-                # n = n.précédent
-                path = [target] + path
-                target = previous[target]
-
-            # DEBUG
-            if self.first:
-                limit = range(self.jacky.game.board.size)
-                for row in limit:
-                    for col in limit:
-                        if walked.has_key((row,col)):
-                            print(str(walked[(row,col)]), "\t|",)
-                        else:
-                            print("%%%\t|")
-                    #print "\n",
-                print("====================================")
-                self.first = False
-
-            #Fin tant que
-            #chemin.ajouterAvant(début)
-            #Retourner chemin
-            path = [start] + path
-            evaluation = walked[path[-1]]
-            results.append((path, evaluation))
-
-        # return
-        return results
-    # END Dijkstra
-
-
-    def nodeAtMinimumDistance(self, notFoundYet, distances):
-        """Wait for non-empty list of tuple (x,y), keys of distances dictionnary.
-        Return the key with the minimum positive value"""
-        # found minimal
-        minimal = None
-        for node in notFoundYet:
-            if distances[node] != None: 
-                if minimal == None or (distances[minimal] > distances[node]):
-                        minimal = node
-
-        # return
-        return minimal
-
-
-
-    def distanceBetween(self, node1, node2):
-       """Wait two nodes. Return the minimum distance between these two nodes"""
-       return self.distanceBetweenTwoNodes
+                 #29  end function
 
 
 
