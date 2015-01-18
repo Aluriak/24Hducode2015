@@ -11,6 +11,21 @@ dict weights node-next:weight
 DISTANCE_BETWEEN_TWO_NODES = 1
 
 
+
+def dijkstra(structure, schedules, weights, linkings, stop_start, stop_target):
+    """
+    structure, schedules, weights and linkings are dictionnary created since 
+    data_access module.
+    stop_start and stop_target are stop_id where bot start and where bot must go.
+
+    return list of (track_id, stop_id) needed for reach target from start
+    """
+    final_path = []
+    return final_path
+
+
+
+
 class Graph(object):
     """Basic implementation of graph."""
 
@@ -65,12 +80,12 @@ class Graph(object):
         walked = {}
         previous = {}
         for key in self.nodes.iterkeys():
-            walked[key] = None # infinity
+            walked[key]   = None # infinity
             previous[key] = None
             
         # init walking dict and notFoundYet list
         walked[start] = 0
-        notFoundYet = []
+        notFoundYet = set()
         for key in self.nodes.iterkeys():
             notFoundYet.append(key)
 

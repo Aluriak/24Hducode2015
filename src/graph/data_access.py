@@ -105,20 +105,6 @@ def creat_linkings(structure):
 
 
 
-def generationHoraire(self):
-    for file_name in TRACKS:
-        with open(PATH+file_name+'.json', 'r') as fl:
-            data[file_name] = json.loads(fl.read())
-
-    print(data)
-
-    id_tmp = None
-    for stop in data[file_name]:
-        if id_tmp is not None:
-            for horaire in date[file_name]['schedule'][stop['track_id']]['abbrev_du_jour']:
-                horaires[stop['track_id'][abbrev_du_jour].append(horaire)]
-
-
 
 
 if __name__ == '__main__':

@@ -15,6 +15,8 @@ badd +3 graph/
 badd +0 graph/data_access.py
 badd +63 graph/schedule.py
 badd +1 graph/schedule_manager.py
+badd +0 horaire.py
+badd +0 horaire/horaire.py
 argglobal
 silent! argdel *
 set stal=2
@@ -57,12 +59,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 34 - ((33 * winheight(0) + 19) / 39)
+let s:l = 34 - ((19 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 34
-normal! 09|
+normal! 026|
 lcd ~/Programmation/Projets/24h/2015/24Hducode2015/src
 tabedit ~/Programmation/Projets/24h/2015/24Hducode2015/src/graph/graph.py
 set splitbelow splitright
@@ -80,12 +82,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+let s:l = 20 - ((10 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+20
 normal! 0
+lcd ~/Programmation/Projets/24h/2015/24Hducode2015/src
 tabedit ~/Programmation/Projets/24h/2015/24Hducode2015/src/graph/data_access.py
 set splitbelow splitright
 set nosplitbelow
@@ -102,12 +105,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 83 - ((11 * winheight(0) + 19) / 39)
+let s:l = 130 - ((38 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-83
-normal! 08|
+130
+normal! 0
 lcd ~/Programmation/Projets/24h/2015/24Hducode2015/src
 tabedit ~/Programmation/Projets/24h/2015/24Hducode2015/src/graph/schedule_manager.py
 set splitbelow splitright
@@ -130,9 +133,32 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
+normal! 03|
+lcd ~/Programmation/Projets/24h/2015/24Hducode2015/src
+tabedit ~/Programmation/Projets/24h/2015/24Hducode2015/src/horaire/horaire.py
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
 normal! 0
 lcd ~/Programmation/Projets/24h/2015/24Hducode2015/src
-tabnext 5
+tabnext 6
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
