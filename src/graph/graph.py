@@ -12,7 +12,7 @@ DISTANCE_BETWEEN_TWO_NODES = 1
 
 
 
-def dijkstra(structure, schedules, weights, linkings, stop_start, stop_target):
+def dijkstra(structure, schedules, linkings, stop_start, stop_target):
     """
     structure, schedules, weights and linkings are dictionnary created since 
     data_access module.
