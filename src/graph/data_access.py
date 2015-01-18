@@ -69,7 +69,7 @@ def creat_schedules():
 
 
 
-def creat_weight():
+def weight(track, current_stop, time):
     """ HEAVY generation of main dictionnary
 
     returned dict link a track, a stop and a date to a date.
@@ -79,11 +79,12 @@ def creat_weight():
     date must be in format provided (not expected in move query)
     by the server
     """
-    from schedule_manager import all_next_cars
-    data = {}
-    return data
 
-
+    next_car_index = next_car(schedule[track, current_stop],time)
+    new_date = schedule[track, next_stop][next_car_index]
+    new_time = dateToMinute(new_date)
+    start_date = dateToMinute(START_DATE)
+    return new_time-start_date
 
 
 def creat_linkings(structure):
