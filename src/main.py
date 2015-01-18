@@ -38,6 +38,42 @@ from graph.graph import *
 #########################
 # FUNCTIONS             #
 #########################
+
+def init_graph():
+    load_graph()
+
+
+
+def jouer():
+    init()
+    dijkstra()
+	move() = moves.pop
+    send_move(move)
+	move = moves.pop()
+
+    while not response['status'] == "arrived"
+		
+		if response['success']:
+			if response['status'] == "moved":
+		        send_move(move)
+    		    move = moves.pop()
+			elif response['status'] == "rerouted":
+				init(response.target)
+		elif not response['success']:
+			print(response['status'])
+
+
+    print(score)
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     print('CREATION OF RESSOURCES')
     next_stop = creat_structure()
@@ -65,3 +101,11 @@ if __name__ == '__main__':
     #print(timin2timout(d))
 
 
+
+
+
+
+
+    init_graph()
+    start()
+	jouer()
