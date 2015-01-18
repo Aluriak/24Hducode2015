@@ -47,10 +47,10 @@ def jouer():
     init()
     dijkstra()
 	move() = moves.pop
-    while not arrived
-        send_move(move)
-        move = moves.pop()
-		
+    send_move(move)
+	move = moves.pop()
+
+    while not response['status'] == "arrived"
 		
 		if response['success']:
 			if response['status'] == "moved":
