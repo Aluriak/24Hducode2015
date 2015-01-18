@@ -113,7 +113,7 @@ class Horaire():
             2015-03-18 04:44:00
         """
         # TODO use arrow module for add self.day to day properly
-        return datetime.datetime(year=year, month=month, day=self.days+day, hour=self.h, minute=self.m).strftime('%d %a %H:%M:%S %Y')
+        return datetime.datetime(year=year, month=month, day=self.days+day, hour=self.h, minute=self.m).strftime('%d %b %H:%M:%S %Y')
 
 
 

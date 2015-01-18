@@ -23,7 +23,6 @@ def next_car(schedule, travel_time):
     #next_time = None
 
     for index, time in enumerate(schedule):
-        print(travel_time.__class__)
         if time.is_after(travel_time):
             next_time = index
             break
