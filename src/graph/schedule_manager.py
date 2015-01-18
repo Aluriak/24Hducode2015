@@ -20,7 +20,7 @@ def next_car(schedule, travel_time):
     """
 
     #travel_time = datetime.datetime.strptime(datetime.datetime.strptime(travel_time, '%Y-%m-%d %H:%M:%S').strftime('%H:%M:%S'), '%H:%M:%S')
-    #next_time = None
+    next_time = None
 
     for index, time in enumerate(schedule):
         if time.is_after(travel_time):

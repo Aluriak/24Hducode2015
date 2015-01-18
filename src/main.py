@@ -61,7 +61,7 @@ def jouer():
     linkings  = creat_linkings (next_stop)
     tracknames= creat_tracknames()
     print('END ! ')
-    game = Game(mode=Game.TRAINING)
+    game = Game(mode=Game.EVAL)
     #game = Game(mode=Game.ARENA)
     game.start()
     while not game.game_have_begin(): pass
@@ -75,9 +75,10 @@ def jouer():
     print('RUNNING…')
     path = dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0))
     print(path)
+    print('CLE:', path[0][0], path[0][1], linkings[stop_start])
     print('OK !')
     for track, stop, time in times_creator(path, schedules, initial_time, game.server_initial_time()):
-        print(next_stop[track, stop], track, time)
+        #print(next_stop[track, stop], track, time)
         #game.send_move(next_stop[track, stop], tracknames[track], time)
         game.send_move(stop, tracknames[track], time)
 

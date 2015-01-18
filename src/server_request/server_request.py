@@ -46,12 +46,13 @@ def timin2timout(timin):
 class Game():
     TRAINING = 'training'
     ARENA = 'arena'
+    EVAL = 'eval'
     URL_START = 'http://24hc15.haum.org/api/connect/'
     URL_ROOT  = 'http://24hc15.haum.org'
 
 # CONSTRUCTOR #################################################################
     def __init__(self, mode, token=jacky_token, secret_key=jacky_secret_key):
-        if not mode in [Game.TRAINING, Game.ARENA]:
+        if not mode in [Game.TRAINING, Game.EVAL, Game.ARENA]:
             mode = Game.TRAINING
             print('WARNING: invalid given mode. Used one is TRAINING')
         self.mode = mode
