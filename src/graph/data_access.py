@@ -85,8 +85,8 @@ def weight(track, current_stop, time):
 
     next_car_index = next_car(schedule[track, current_stop],time)
     new_date = schedule[track, next_stop][next_car_index]
-    new_time = dateToMinute(new_date)
-    start_date = dateToMinute(START_DATE)
+    new_time = date_to_minute(new_date)
+    start_date = date_to_minute(START_DATE)
     return new_time-start_date
 
 
