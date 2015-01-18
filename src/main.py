@@ -62,6 +62,7 @@ def jouer():
     tracknames= creat_tracknames()
     print('END ! ')
     game = Game(mode=Game.TRAINING)
+    #game = Game(mode=Game.ARENA)
     game.start()
     while not game.game_have_begin(): pass
     print('NOW, START PLAY !')
@@ -77,6 +78,7 @@ def jouer():
     for track, stop, time in times_creator(path, schedules, initial_time, game.server_initial_time()):
         print(next_stop[track, stop], track, time)
         game.send_move(next_stop[track, stop], tracknames[track], time)
+        #game.send_move(stop, tracknames[track], time)
 
 
     #while not response['status'] == "arrived":
@@ -103,24 +105,24 @@ def jouer():
 if __name__ == '__main__':
     jouer()
     exit(0)
-    print('CREATION OF RESSOURCES')
-    next_stop = creat_structure()
-    schedules = creat_schedules()
-    linkings  = creat_linkings (next_stop)
-    print('END ! ')
-    print('NOW, START PLAY !')
-    stop_start, stop_target = 1334, 1291
-    initial_time = Horaire(5, 34)
-    #import random
-    #stop_target = random.choice(tuple(linkings.keys()))
-    print('START  IS', stop_start)
-    print('TARGET IS', stop_target)
-    print('TIME   IS', initial_time)
-    print('RUNNING…')
-    path = dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0))
-    print('OK !')
-    for data in times_creator(path, schedules, initial_time):
-        print(data)
+    #print('CREATION OF RESSOURCES')
+    #next_stop = creat_structure()
+    #schedules = creat_schedules()
+    #linkings  = creat_linkings (next_stop)
+    #print('END ! ')
+    #print('NOW, START PLAY !')
+    #stop_start, stop_target = 1334, 1291
+    #initial_time = Horaire(5, 34)
+    ##import random
+    ##stop_target = random.choice(tuple(linkings.keys()))
+    #print('START  IS', stop_start)
+    #print('TARGET IS', stop_target)
+    #print('TIME   IS', initial_time)
+    #print('RUNNING…')
+    #path = dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0))
+    #print('OK !')
+    #for data in times_creator(path, schedules, initial_time):
+        #print(data)
     
     #def tracks_list():
         #t = []
