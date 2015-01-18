@@ -7,6 +7,9 @@ import os
 from collections import defaultdict
 from horaire import Horaire
 
+
+START_DATE = 0
+PENALTY_TRACK_CHANGE = 7
 PATH = '../data/'
 TRACKS =  ['11_A', '11_R', '12_A', '12_R', '16_A', '16_R', '17_A', '17_R', '18_A', '18_R', '19_A', '19_R',
            '20_A', '20_R', '21_A', '21_R', '22_A', '22_R', '23_A', '23_R', '24_A', '24_R', '25_A', '25_R',
@@ -72,7 +75,7 @@ def creat_schedules():
 
 
 
-def weight(track, current_stop, time):
+def compute_weight(current_track, tested_track, current_stop, tested_stop, time, structure, schedules):
     """ HEAVY generation of main dictionnary
 
     returned dict link a track, a stop and a date to a date.
@@ -83,11 +86,14 @@ def weight(track, current_stop, time):
     by the server
     """
 
-    next_car_index = next_car(schedule[track, current_stop],time)
-    new_date = schedule[track, next_stop][next_car_index]
+    next_car_index = next_car(schedules[tested_track, current_stop],time)
+    new_date = schedules[tested_track, tested_stop][next_car_index]
     new_time = date_to_minute(new_date)
     start_date = date_to_minute(START_DATE)
-    return new_time-start_date
+    if current_track == tested_track:
+        return new_time-start_date
+    else
+        return new_time-start_date+PENALTY_TRACK_CHANGE
 
 
 def creat_linkings(structure):
