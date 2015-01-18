@@ -37,6 +37,42 @@ from graph.data_access import *
 #########################
 # FUNCTIONS             #
 #########################
+
+def init_graph():
+    load_graph()
+
+
+
+
+def demander_partie():
+    prepare_request()
+    send_request()
+    wait_request()
+    parse_responce()
+
+
+
+
+def jouer():
+    init()
+    dijkstra()
+    while not arrived
+        send_step()
+        step = next_step()
+        if rerooted
+            init()
+            dijkstra()
+    print(score)
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 04:44:00'))
     next_stop = creat_structure()
@@ -54,3 +90,11 @@ if __name__ == '__main__':
     #print(timin2timout(d))
 
 
+
+
+
+
+
+    init_graph()
+    demande_partie()
+    jouer()
