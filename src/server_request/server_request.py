@@ -116,12 +116,12 @@ class Game():
 
     def main_stops(self):
         """Return (start, end) a tuple of two stops"""
-        return self.last_game_state['first_stop'], self.last_game_state['target']
+        return self.last_game_state['first_stop']['id'], self.last_game_state['target']['id']
     def begin_time(self):
         """Return time as an Horaire object, equal to begin time"""
         return Horaire.from_server_dialect(self.last_game_state['dtstart'])
     def server_initial_time(self):
-        return self.last_game_state['dtstart']
+        return datetime.datetime.strptime(self.last_game_state['dtstart'], '%Y-%m-%dT%H:%M:%S+00:00')
 
 
 # PRIVATE METHODS #############################################################

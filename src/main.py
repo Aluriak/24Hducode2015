@@ -62,7 +62,7 @@ def jouer():
     print('END ! ')
     game = Game(mode=Game.TRAINING)
     game.start()
-    while not game_have_begin: pass
+    while not game.game_have_begin(): pass
     print('NOW, START PLAY !')
     stop_start, stop_target = game.main_stops()
     initial_time = game.begin_time()
@@ -73,7 +73,7 @@ def jouer():
     path = dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0))
     print('OK !')
     for track, stop, time in times_creator(path, schedules, initial_time, game.server_initial_time()):
-        game.send_move(stop, track, next_car(schedules[track, node], time))
+        game.send_move(stop, track, next_car(schedules[track, stop], time))
         next_car(schedules[track, node], last_time)
 
 
