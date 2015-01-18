@@ -62,7 +62,7 @@ def jouer():
 			print(response['status'])
 
 
-    print(score)
+    print(response['score'])
 
 
 
