@@ -33,15 +33,16 @@ def simplify_dijkstra(func):
 
 
 
-@simplify_dijkstra
+#@simplify_dijkstra
 def dijkstra(next_stop, schedules, linkings, stop_start, stop_target, initial_time):
     """
     next_stop (structure), schedules, weights and linkings are dictionnary created since 
     data_access module.
     stop_start and stop_target are stop_id where bot start and where bot must go.
 
-    return list of (track_id, stop_id) needed for reach target from start
-    track_id is the track that is taked for reach stop_id.
+    return list of (track_id, stop_id, time) needed for reach target from start.
+    track_id is the track that is taked from stop_id. time is object
+    that is the time that can be send to server, and tell when we leave stop_id.
     """
     def pop_min_dist_nodes():
         """Return stop_id of the nearer stop_id from source that is in unwalked
@@ -74,7 +75,7 @@ def dijkstra(next_stop, schedules, linkings, stop_start, stop_target, initial_ti
         for track, node in ((track, next_stop[track, stop]) for track in linkings[stop]):
             tested_track = prev[stop]
             tested_track = tested_track[0] if tested_track is not None else tested_track
-            weight, arrived_horaire = compute_weight(
+            weight, leave_horaire = compute_weight(
                 tested_track,  # we use this track
                 track,          # we try this one
                 stop,           # from here
@@ -90,58 +91,23 @@ def dijkstra(next_stop, schedules, linkings, stop_start, stop_target, initial_ti
                 dist[node] = alt
                 prev[node] = (track, stop)
                 #assert(next_stop[track, stop] == node)
-                time[node] = arrived_horaire
+                time[node] = leave_horaire
 
     
     # path reconstruction
     path = []
     #print(prev)
     previous = prev[stop_target]
-    print('CLE:', previous)
+    #print('CLE:', previous)
     while previous != (None, None):
         path = [(previous[0], next_stop[previous])] + path
+        #path = [(previous[0], previous[1], time[previous[1]])] + path
         previous = prev[previous[1]]
-    print('BPH:', path)
-    return path[::-1]
-
-
-
-    previous = prev[stop_target]
-    while previous is not None: # while first is not reach
-        track, stop = previous
-        path += [(track, stop)]
-        previous = prev[stop]
-    path.pop() # delete (None, None) at the end
+    #print('BPH:', path)
     return path
-#function Dijkstra(Graph, source):
 
-# dist[source] ← 0                       // Distance from source to source
-# prev[source] ← undefined               // Previous node in optimal path initialization
 
-#for each vertex v in Graph:  // Initialization
-    #if v ≠ source            // Where v has not yet been removed from Q (unvisited nodes)
-    #dist[v] ← infinity             // Unknown distance function from source to v
-       #prev[v] ← undefined            // Previous node in optimal path from source
-    #end if 
-    #add v to Q                     // All nodes initially in Q (unvisited nodes)
-#end for
- 
- #while Q is not empty:
-         #u ← vertex in Q with min dist[u]  // Source node in first case
-         #remove u from Q 
-         
-         #for each neighbor v of u:           // where v has not yet been removed from Q.
-             #alt ← dist[u] + length(u, v)
-             #if alt < dist[v]:               // A shorter path to v has been found
-                 #dist[v] ← alt 
-                 #prev[v] ← u 
-             #end if
-         #end for
-     #end while
 
-     #return dist[], prev[]
-
-                 #29  end function
 
 
 

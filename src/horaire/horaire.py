@@ -112,7 +112,8 @@ class Horaire():
         return self in this time format (expected by server for move):
             2015-03-18 04:44:00
         """
-        return datetime.datetime(year=year, month=month, day=day, hour=self.h, minute=self.m).strftime('%d %a %H:%M:%S %Y')
+        # TODO use arrow module for add self.day to day properly
+        return datetime.datetime(year=year, month=month, day=self.day+day, hour=self.h, minute=self.m).strftime('%d %a %H:%M:%S %Y')
 
 
 
@@ -123,6 +124,7 @@ if __name__ == '__main__':
     h1 = Horaire(4, 30)
     h2 = Horaire(4, 30)
     assert((h1 + h2) == Horaire(9, 0))
+    print(h1.as_minutes())
     print(h1.to_server_dialect(2, 11, 2015))
     print(Horaire.from_server_dialect('2015-03-18T04:44:00+00:00'))
     print(Horaire.from_schedules_dialect('04:44:05'))

@@ -12,6 +12,7 @@ import requests
 import datetime
 import locale
 from secret import jacky_secret_key, jacky_token
+from horaire import Horaire
 
 
 
@@ -76,7 +77,7 @@ class Game():
 
 
     def game_have_begin(self):
-        """return (True, game_state) iff game have begin, else (False, self.last_game_state)"""
+        """return True iff game have begin, else False"""
         data = {'secret_token': self.secret_key}
         self.last_game_state = json.loads(ask_server(self.game_url, json_data=data).text)
         #print(self.last_game_state)
@@ -110,7 +111,17 @@ class Game():
         r = ask_server(self.move_url, json_data=data)
         self.last_move_state = json.loads(r.text)
         print('MOVE', self.last_move_state)
-        return self.last_move_state
+        return self.last_move_state[0]
+
+
+    def main_stops(self):
+        """Return (start, end) a tuple of two stops"""
+        return self.last_game_state['first_stop'], self.last_game_state['target']
+    def begin_time(self):
+        """Return time as an Horaire object, equal to begin time"""
+        return Horaire.from_server_dialect(self.last_game_state['dtstart'])
+    def server_initial_time(self):
+        return self.last_game_state['dtstart']
 
 
 # PRIVATE METHODS #############################################################

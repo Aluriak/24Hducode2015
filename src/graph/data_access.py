@@ -10,7 +10,7 @@ from graph.schedule_manager import next_car
 
 
 CURRENT_DATE = 0
-PENALTY_TRACK_CHANGE = 7
+PENALTY_TRACK_CHANGE = 70
 PENALTY_CONNECTION_DATE_NOT_VALID = 30
 PENALTY_UNKNOWN_CONNECTION = 20
 PENALTY_PASTED_CONNECTION = 0
@@ -83,14 +83,14 @@ def creat_schedules():
 
 
 def compute_weight(current_track, tested_track, current_stop, tested_stop, initial_time, time, structure, schedules):
-    """ HEAVY generation of main dictionnary
-
-    returned dict link a track, a stop and a date to a date.
-    value is the date when bot will arrived to given stop, if 
-    follow given track since given date.
-
-    date must be in format provided (not expected in move query)
-    by the server
+    """
+    Returned weight of path between current_stop and tested_stop, by passing 
+    through tested_track. The last taked track is current_track, the initial_time game time is initial_time,
+    time is current time, structure the heavy dictionnary creat with creat_structure(), and schedules the heavy dictionnary 
+    create with creat_schedules().
+    Returne also the time to leave the current_node
+    format : 
+        weight, time
     """
 
     #assert(isinstance(time, Horaire))
@@ -100,7 +100,7 @@ def compute_weight(current_track, tested_track, current_stop, tested_stop, initi
     start_date      = initial_time.as_minutes()
     #assert(new_time > start_date)
 
-    return (new_time - start_date) + (PENALTY_TRACK_CHANGE if current_track is not tested_track else 0), new_date
+    return (new_time - start_date) + (PENALTY_TRACK_CHANGE if current_track is not tested_track else 0), schedules[tested_track, current_stop][next_car_index]
 
 
 def creat_linkings(structure):
