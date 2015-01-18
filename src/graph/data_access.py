@@ -6,14 +6,14 @@ import graph.schedule_manager
 import os
 from collections import defaultdict
 from horaire import Horaire
+from graph.schedule_manager import next_car
 
 
-START_DATE = 0
 CURRENT_DATE = 0
 PENALTY_TRACK_CHANGE = 7
 PENALTY_CONNECTION_DATE_NOT_VALID = 30
 PENALTY_UNKNOWN_CONNECTION = 20
-PENALTY_PASTED_CONNECTION = 
+PENALTY_PASTED_CONNECTION = 0
 PENALTY_BAD_TRACK = 30
 PENALTY_BAD_STOP = 0
 PENALTY_UNKNOWN_TRACK = 30
@@ -82,7 +82,7 @@ def creat_schedules():
 
 
 
-def compute_weight(current_track, tested_track, current_stop, tested_stop, time, structure, schedules):
+def compute_weight(current_track, tested_track, current_stop, tested_stop, initial_time, time, structure, schedules):
     """ HEAVY generation of main dictionnary
 
     returned dict link a track, a stop and a date to a date.
@@ -93,14 +93,14 @@ def compute_weight(current_track, tested_track, current_stop, tested_stop, time,
     by the server
     """
 
-    next_car_index = next_car(schedules[tested_track, current_stop],time)
-    new_date = schedules[tested_track, tested_stop][next_car_index]
-    new_time = date_to_minute(new_date)
-    start_date = date_to_minute(START_DATE)
-    if current_track == tested_track:
-        return new_time-start_date
-    else
-        return new_time-start_date+PENALTY_TRACK_CHANGE
+    #assert(isinstance(time, Horaire))
+    next_car_index  = next_car(schedules[tested_track, current_stop], time)
+    new_date        = schedules[tested_track, tested_stop][next_car_index]
+    new_time        = new_date.as_minutes()
+    start_date      = initial_time.as_minutes()
+    #assert(new_time > start_date)
+
+    return (new_time - start_date) + (PENALTY_TRACK_CHANGE if current_track is not tested_track else 0), new_date
 
 
 def creat_linkings(structure):

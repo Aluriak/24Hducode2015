@@ -10,6 +10,7 @@
 from server_request import Game, timin2timout
 from graph.schedule_manager import *
 from graph.data_access import *
+from graph.graph import *
 
 
 
@@ -38,14 +39,24 @@ from graph.data_access import *
 # FUNCTIONS             #
 #########################
 if __name__ == '__main__':
-    print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 04:44:00'))
+    print('CREATION OF RESSOURCES')
     next_stop = creat_structure()
     schedules = creat_schedules()
     linkings  = creat_linkings (next_stop)
-    track = 36
-    stop  = 1334 
-    print(next_stop[track, stop])
-    print(schedules[track, stop])
+    print('END ! ')
+    print('NOW, START PLAY !')
+    stop_start, stop_target = 1334, 1291
+    print(dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0)))
+    for track, stop in dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0)):
+        print(stop, ',', track, ':', next_stop[track, stop])
+    #print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 04:44:00'))
+    #next_stop = creat_structure()
+    #schedules = creat_schedules()
+    #linkings  = creat_linkings (next_stop)
+    #track = 36
+    #stop  = 1334 
+    #print(next_stop[track, stop])
+    #print(schedules[track, stop])
     #g = Game(Game.TRAINING)
     #g.start()
     #while not g.game_have_begin():
