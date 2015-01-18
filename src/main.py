@@ -59,6 +59,7 @@ def jouer():
     next_stop = creat_structure()
     schedules = creat_schedules()
     linkings  = creat_linkings (next_stop)
+    tracknames= creat_tracknames()
     print('END ! ')
     game = Game(mode=Game.TRAINING)
     game.start()
@@ -75,7 +76,7 @@ def jouer():
     print('OK !')
     for track, stop, time in times_creator(path, schedules, initial_time, game.server_initial_time()):
         print(next_stop[track, stop], track, time)
-        game.send_move(next_stop[track, stop], track, time)
+        game.send_move(next_stop[track, stop], tracknames[track], time)
 
 
     #while not response['status'] == "arrived":

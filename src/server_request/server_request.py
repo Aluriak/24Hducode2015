@@ -111,7 +111,7 @@ class Game():
         r = ask_server(self.move_url, json_data=data)
         self.last_move_state = json.loads(r.text)
         print('MOVE', self.last_move_state)
-        return self.last_move_state[0]
+        return self.last_move_state
 
 
     def main_stops(self):

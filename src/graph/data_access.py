@@ -34,6 +34,14 @@ def next_stop(structure, track_id, stop_id):
     return structure[track_id, stop_id]
 
 
+def creat_tracknames():
+    data = {}
+    for file_name in TRACKS:
+        with open(PATH+file_name+'.json', 'r') as fl:
+            data[json.loads(fl.read())['track_id']] = file_name
+    return data
+
+
 
 
 def creat_structure():
