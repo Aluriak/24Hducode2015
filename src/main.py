@@ -43,26 +43,19 @@ def init_graph():
 
 
 
-
-def demander_partie():
-    prepare_request()
-    send_request()
-    wait_response()
-    parse_responce(response)
-
-
-
 def jouer():
     init()
     dijkstra()
+	move() = moves.pop
     while not arrived
-        send_step()
-        step = next_step()
+        send_move(move)
+        move = moves.pop()
 		
 		
 		if response['success']:
 			if response['status'] == "moved":
-				jouer()
+		        send_move(move)
+    		    move = moves.pop()
 			elif response['status'] == "rerouted":
 				init(response.target)
 		elif not response['success']:
@@ -103,5 +96,5 @@ if __name__ == '__main__':
 
 
     init_graph()
-    demande_partie()
-    jouer()
+    start()
+	jouer()
