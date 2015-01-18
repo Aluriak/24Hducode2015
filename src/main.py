@@ -71,14 +71,15 @@ def jouer():
     print('START  IS', stop_start)
     print('TARGET IS', stop_target)
     print('TIME   IS', initial_time)
+    print('TIME   IS', game.server_initial_time())
     print('RUNNING…')
     path = dijkstra(next_stop, schedules, linkings, stop_start, stop_target, Horaire(4, 0))
     print(path)
     print('OK !')
     for track, stop, time in times_creator(path, schedules, initial_time, game.server_initial_time()):
         print(next_stop[track, stop], track, time)
-        game.send_move(next_stop[track, stop], tracknames[track], time)
-        #game.send_move(stop, tracknames[track], time)
+        #game.send_move(next_stop[track, stop], tracknames[track], time)
+        game.send_move(stop, tracknames[track], time)
 
 
     #while not response['status'] == "arrived":
