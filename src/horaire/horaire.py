@@ -114,3 +114,47 @@ if __name__ == '__main__':
     print(Horaire.from_schedules_dialect('04:44:05'))
 
 
+
+
+
+# here are defined many useless functions
+
+def add_minutes(travel_time, minutes):
+    """
+    Wait for a datetime like 
+        HH:MM:SS
+    and add the given integer minutes as minutes
+    finally, return the new time
+    """
+    travel_time = datetime.datetime.strptime(datetime.datetime.strptime(travel_time, '%Y-%m-%d %H:%M:%S').strftime('%H:%M:%S'), '%H:%M:%S')
+    minutes     = datetime.datetime.strptime(str(minutes), '%M')
+    minutes     = datetime.timedelta(hours=minutes.hour, minutes=minutes.minute, seconds=minutes.second)
+    #print(minutes, minutes.__class__)
+    #print(travel_time, travel_time.__class__)
+    #print(minutes + travel_time)
+    return minutes + travel_time
+
+
+
+
+def date_to_minute(travel_time):
+    """
+    Wait for a datetime like 
+        HH:MM:SS
+    and return this date in minute
+    """
+    travel_time = datetime.datetime.strptime(datetime.datetime.strptime(travel_time, '%Y-%m-%d %H:%M:%S').strftime('%H:%M:%S'), '%H:%M:%S')
+    return travel_time.hour*60 + travel_time.minute
+
+
+
+def minute_to_date(minutes):
+    """
+    Take integer as minute number
+    Return an equivalent datetime like 
+        HH:MM:SS
+    """
+    travel_time = datetime.datetime.strptime(datetime.datetime.strptime(travel_time, '%H:%M:%S').strftime('%H:%M:%S'), '%H:%M:%S')
+    return travel_time.hour*60 + travel_time.minute
+
+

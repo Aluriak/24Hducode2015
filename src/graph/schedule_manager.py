@@ -15,7 +15,9 @@ def next_car(schedule, travel_time):
 
     travel_time input must be as 
         2015-03-18 04:44:00
-    returned time is the same
+    
+    Returned value is the index of next car in schedule.
+    (so, access to schedule[returned_value] give the Horaire object.
     """
 
     travel_time = datetime.datetime.strptime(datetime.datetime.strptime(travel_time, '%Y-%m-%d %H:%M:%S').strftime('%H:%M:%S'), '%H:%M:%S')
@@ -55,14 +57,11 @@ def all_next_cars(schedules, linking, stop_id, travel_time):
         
 
 
-
-
 if __name__ == '__main__':
     print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 04:44:00'))
     print(next_car(['00:15:00', '10:30:00', '10:32:00', '10:33:00', '23:34:00'], '2015-03-18 10:31:00'))
     print(next_car(['10:30:00', '10:32:00', '10:33:00', '23:34:00'],             '2015-03-18 10:32:00'))
     print(next_car(['10:30:00', '10:32:00', '10:33:00', '23:34:00'],             '2015-03-18 23:34:00'))
-    pass
 
 
 
