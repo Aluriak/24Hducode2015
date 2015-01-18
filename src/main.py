@@ -88,7 +88,6 @@ def jouer():
             #print(response['status'])
 
 
-    #print(score)
 
 
 
