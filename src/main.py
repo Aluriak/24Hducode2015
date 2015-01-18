@@ -47,9 +47,8 @@ def init_graph():
 def demander_partie():
     prepare_request()
     send_request()
-    wait_request()
-    parse_responce()
-
+    wait_response()
+    parse_responce(response)
 
 
 
@@ -59,9 +58,17 @@ def jouer():
     while not arrived
         send_step()
         step = next_step()
-        if rerooted
-            init()
-            dijkstra()
+		
+		
+		if response['success']:
+			if response['status'] == "moved":
+				jouer()
+			elif response['status'] == "rerouted":
+				init(response.target)
+		elif not response['success']:
+			print(response['status'])
+
+
     print(score)
 
 
