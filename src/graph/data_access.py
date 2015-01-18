@@ -2,11 +2,12 @@
 Access by dictionnary to all data in json.
 """
 import json
-import schedule_manager
+import graph.schedule_manager
 import os
 from collections import defaultdict
+from horaire import Horaire
 
-PATH = '../../data/'
+PATH = '../data/'
 TRACKS =  ['11_A', '11_R', '12_A', '12_R', '16_A', '16_R', '17_A', '17_R', '18_A', '18_R', '19_A', '19_R',
            '20_A', '20_R', '21_A', '21_R', '22_A', '22_R', '23_A', '23_R', '24_A', '24_R', '25_A', '25_R',
            '26_A', '26_R', '27_A', '27_R', '2_A', '2_R', '3_A', '3_R', '4_A', '4_R', '5_A','5_R', '6_A', '6_R',
@@ -63,7 +64,9 @@ def creat_schedules():
                 # get schedule of stop the monday (or any other day)
                 # and put it in data dict
                 sched = brute_data['schedule'][str(stop['id'])]['lu']
-                data[brute_data['track_id'], stop['id']] = sched
+                # translate in Horaire object all values of schedules
+                data[brute_data['track_id'], stop['id']] = \
+                    [Horaire.from_schedules_dialect(_) for _ in sched]
 
     return data
 
