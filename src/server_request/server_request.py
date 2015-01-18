@@ -32,7 +32,7 @@ def timin2timout(timin):
         2015-03-18 04:44:00
     """
     d = datetime.datetime.strptime(timin, '%Y-%m-%dT%H:%M:%S+00:00')
-    d =  datetime.datetime.strftime(d, '%d %a %H:%M:%S %Y')
+    d = datetime.datetime.strftime(d, '%d %a %H:%M:%S %Y')
     print(d)
     return d
 
@@ -105,9 +105,9 @@ class Game():
             "to_stop": stop_id,
             "type": "move"
         }
+        #print(json.dumps(data))
+        #exit(0)
         r = ask_server(self.move_url, json_data=data)
-        print(dir(r))
-        print(r.text)
         self.last_move_state = json.loads(r.text)
         print('MOVE', self.last_move_state)
         return self.last_move_state

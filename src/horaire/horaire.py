@@ -4,6 +4,11 @@ import datetime
 
 
 class Horaire():
+    """
+    Save only hours and minutes.
+    Provide some counts.
+    Take silently count of passed day
+    """
 
     def __init__(self, h=0, m=0):
         self.h, self.m = h, m
@@ -75,6 +80,11 @@ class Horaire():
         self.h %= 24
 
 
+    def as_minutes(self):
+        """Return self as an amount of minutes (integer)"""
+        return self.h * 60 + self.m
+
+
     @staticmethod
     def from_server_dialect(server_dialect):
         """
@@ -103,6 +113,10 @@ class Horaire():
             2015-03-18 04:44:00
         """
         return datetime.datetime(year=year, month=month, day=day, hour=self.h, minute=self.m).strftime('%d %a %H:%M:%S %Y')
+
+
+
+
 
 
 if __name__ == '__main__':
